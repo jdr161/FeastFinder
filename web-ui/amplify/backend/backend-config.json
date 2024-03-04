@@ -1,4 +1,20 @@
 {
+  "api": {
+    "menu": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "menuFunction"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "feastfinder573adb38": {
       "customAuth": false,
@@ -23,6 +39,96 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "menuFunction": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_menuFunction_dbConnectionPort": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menuFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_menuFunction_dbConnectionString": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menuFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_menuFunction_dbPassword": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menuFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_menuFunction_dbUser": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menuFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_menuFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menuFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_menuFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menuFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_menu_dbConnectionPort": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menu"
+        }
+      ]
+    },
+    "AMPLIFY_function_menu_dbConnectionString": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menu"
+        }
+      ]
+    },
+    "AMPLIFY_function_menu_dbPassword": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menu"
+        }
+      ]
+    },
+    "AMPLIFY_function_menu_dbUser": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "menu"
+        }
+      ]
     }
   }
 }

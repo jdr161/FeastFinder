@@ -14,6 +14,25 @@
     "categories": {
       "auth": {
         "feastfinder573adb38": {}
+      },
+      "function": {
+        "menu": {
+          "dbConnectionString": "feastfinderdb.ct8asc8k0lgv.us-east-2.rds.amazonaws.com",
+          "dbConnectionPort": "5432",
+          "dbUser": "postgres",
+          "dbPassword": "csds395!"
+        },
+        "menuFunction": {
+          "dbConnectionString": "feastfinderdb.ct8asc8k0lgv.us-east-2.rds.amazonaws.com",
+          "dbConnectionPort": "5432",
+          "dbUser": "postgres",
+          "dbPassword": "csds395!",
+          "deploymentBucketName": "amplify-amplifyd34450d2d15b4-staging-165957-deployment",
+          "s3Key": "amplify-builds/menuFunction-7633385358324542715a-build.zip"
+        }
+      },
+      "api": {
+        "menu": {}
       }
     }
   }

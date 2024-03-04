@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/menu": {
+      "name": "/menu",
+      "lambdaFunction": "menuFunction",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
