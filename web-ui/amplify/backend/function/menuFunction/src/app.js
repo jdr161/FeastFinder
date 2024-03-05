@@ -32,61 +32,129 @@ app.use(function(req, res, next) {
   next()
 });
 
-
 /**********************
- * Example get method *
+ * DB Connection *
  **********************/
 
-app.get('/menu', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+var dbConnectionErrorFlag = false;
+const { Client } = require('pg')
+const client = new Client({
+  user: process.env.DB_USER,
+  host: process.env.DB_CONNECTION_STRING,
+  database: 'postgres',
+  password: process.env.DB_PASSWORD,
+  port: 5432,
+})
+client.connect(function(err) {
+  if (err) {
+    console.log("error connecting to database: ")
+    console.log(err.stack)
+    dbConnectionErrorFlag = true;
+  }
 });
 
+/**********************************************************
+ * Function to create the query string, make the request
+ * to the database, and return the response
+ **********************************************************/
+async function doMenuQuery(formattedDate, res){
+  let query = 
+  `SELECT 
+    locations.cafe_name, 
+    items.itemname, 
+    items.kcal, 
+    stations.stationname, 
+    services.servicename 
+  FROM menuitems
+    JOIN locations on menuitems.cafeid=locations.cafeid
+    JOIN items on menuitems.itemid=items.itemid
+    JOIN stations on menuitems.stationid=stations.stationid
+    JOIN services on menuitems.serviceid=services.serviceid
+  WHERE menuitems.date = '${formattedDate}'`;
+  try {
+    let data = await client.query(query);
+    res.json({success: 'retrieved data successfully', data: data.rows});
+  } catch (error) {
+    console.log(`issue executing query: ${query}`)
+    console.log(err.stack)
+    res.status(500).json({failuer: "Issue with database query"})
+  }
+}
+
+/**********************
+ * get method *
+ **********************/
+
+//Default menu endpoint will return the menu for the current day
+app.get('/menu', function(req, res) {
+  if(dbConnectionErrorFlag){
+    res.status(500).json({failure: "Issue connecting to database"})
+  } else {
+    doMenuQuery(new Date().toISOString().split('T')[0], res);
+  }
+});
+
+/*
+Menu endpoint with additional information will parse for date and 
+return menu for that date.
+*/
 app.get('/menu/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+  if(dbConnectionErrorFlag){
+    res.status(500).json({failure: "Issue connecting to database"})
+  } else {
+    let date = req.params[0];
+    let parsedDate = Date.parse(date);
+    if(parsedDate){
+      doMenuQuery(new Date(parsedDate).toISOString().split('T')[0], res);
+    } else {
+        res.status(400).json({failure: `Incorrectly formatted date: ${req.params[0]}. Follow format YYYY-MM-DD`})
+    }
+  }
 });
 
 /****************************
-* Example post method *
+* post method *
+NOT ALLOWED FOR MENU ENDPOINT
 ****************************/
 
 app.post('/menu', function(req, res) {
   // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
+  res.status(405).json({failure: 'Method not allowed', url: req.url, body: req.body})
 });
 
 app.post('/menu/*', function(req, res) {
   // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
+  res.status(405).json({failure: 'Method not allowed', url: req.url, body: req.body})
 });
 
 /****************************
 * Example put method *
+NOT ALLOWED FOR MENU ENDPOINT
 ****************************/
 
 app.put('/menu', function(req, res) {
   // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
+  res.status(405).json({failure: 'Method not allowed', url: req.url, body: req.body})
 });
 
 app.put('/menu/*', function(req, res) {
   // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
+  res.status(405).json({failure: 'Method not allowed', url: req.url, body: req.body})
 });
 
 /****************************
 * Example delete method *
+NOT ALLOWED FOR MENU ENDPOINT
 ****************************/
 
 app.delete('/menu', function(req, res) {
   // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
+  res.status(405).json({failure: 'Method not allowed', url: req.url});
 });
 
 app.delete('/menu/*', function(req, res) {
   // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
+  res.status(405).json({failure: 'Method not allowed', url: req.url});
 });
 
 app.listen(3000, function() {
