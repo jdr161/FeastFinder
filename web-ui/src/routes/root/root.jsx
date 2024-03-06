@@ -1,44 +1,44 @@
-import "@aws-amplify/ui-react/styles.css";
-import {
-  withAuthenticator,
-  Button,
-  Heading,
-  Image,
-  View,
-  Card,
-} from "@aws-amplify/ui-react";
+import Navbar from '../../components/navbar'
+import Footer from '../../components/footer'
+import { Outlet } from 'react-router-dom'
+import { Box, Container, Toolbar } from '@mui/material'
+import { signOut } from 'aws-amplify/auth';
+import { createContext, useContext, useState, useMemo, useCallback } from 'react';
 
-function Root({ signOut }) {
+
+function Root(){
+  const [user, setUser] = useState(null);
+
+  const signOut = useCallback(async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  }, [])
+
+  // we use useMemo to prevent child components subscribed to the user context
+  // from re-rendering on re-render of the Root component.
+  // see https://react.dev/reference/react/useContext#optimizing-re-renders-when-passing-objects-and-functions
+  const userContextValue = useMemo(() => ({
+    user,
+    setUser,
+    signOut,
+  }), [user]);
+
+  const UserContext = createContext(undefined);
+
   return (
-    <View className="App">
-      <Card>
-        <Heading level={1}>We now have Auth!</Heading>
-      </Card>
-      <Button onClick={signOut}>Sign Out</Button>
-    </View>
-  );
-}
+    <UserContext.Provider value={userContextValue}>
+      <Box sx={{ bgcolor: 'primary.background', display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Navbar />
+        <Container component="main" maxWidth="false" disableGutters>
+          <Toolbar />
+          <Outlet />
+        </Container>
+        <Footer />
+      </Box>
+    </UserContext.Provider>
+    )
 
-export default withAuthenticator(Root);
-
-
-
-// import Navbar from '../../components/navbar'
-// import Footer from '../../components/footer'
-// import { Outlet } from 'react-router-dom'
-// import { Box, Container, Toolbar } from '@mui/material'
-
-
-// function Root(){
-//     return (
-//         <Box sx={{ bgcolor: 'primary.background', display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-//             <Navbar />
-//             <Container component="main" maxWidth="false" disableGutters>
-//                 <Toolbar />
-//                 <Outlet />
-//             </Container>
-//             <Footer />
-//         </Box>
-//     )
-
-// } export default Root
+} export default Root
