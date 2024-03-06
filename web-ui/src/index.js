@@ -11,6 +11,7 @@ import {
 import Root from './routes/root';
 import Homepage from './routes/homepage';
 import Errorpage from './routes/errorpage';
+import LoginPage from './routes/login';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
     >
       <Route errorElement={<Errorpage />}>
         <Route index element={<Homepage />} />
+        <Route path='login' element={<LoginPage />} />
         {/* <Route path='about' element={<About />} />
         <Route path='services' element={<Services />} />
         <Route path='book-appointment' element={<BookAppointment />} /> */}
