@@ -29,7 +29,7 @@ function Root(){
   const AuthContext = createContext(undefined);
 
   return (
-    <AuthContext.Provider value={userContextValue}>
+    <AuthContext.Provider value={authContextValue}>
       <Box sx={{ bgcolor: 'primary.background', display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Navbar />
         <Container component="main" maxWidth="false" disableGutters>
