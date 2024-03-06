@@ -3,13 +3,13 @@ import Footer from '../../components/footer'
 import { Outlet } from 'react-router-dom'
 import { Box, Container, Toolbar } from '@mui/material'
 import { signOut } from 'aws-amplify/auth';
-import { createContext, useContext, useState, useMemo, useCallback } from 'react';
+import { createContext, useState, useMemo, useCallback } from 'react';
 
 
 function Root(){
   const [user, setUser] = useState(null);
 
-  const signOut = useCallback(async () => {
+  const logOut = useCallback(async () => {
     try {
       await signOut();
     } catch (error) {
@@ -20,16 +20,16 @@ function Root(){
   // we use useMemo to prevent child components subscribed to the user context
   // from re-rendering on re-render of the Root component.
   // see https://react.dev/reference/react/useContext#optimizing-re-renders-when-passing-objects-and-functions
-  const userContextValue = useMemo(() => ({
+  const authContextValue = useMemo(() => ({
     user,
     setUser,
-    signOut,
+    logOut,
   }), [user]);
 
-  const UserContext = createContext(undefined);
+  const AuthContext = createContext(undefined);
 
   return (
-    <UserContext.Provider value={userContextValue}>
+    <AuthContext.Provider value={userContextValue}>
       <Box sx={{ bgcolor: 'primary.background', display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Navbar />
         <Container component="main" maxWidth="false" disableGutters>
@@ -38,7 +38,7 @@ function Root(){
         </Container>
         <Footer />
       </Box>
-    </UserContext.Provider>
+    </AuthContext.Provider>
     )
 
 } export default Root
