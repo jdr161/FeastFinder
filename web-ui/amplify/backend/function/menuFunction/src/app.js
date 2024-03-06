@@ -76,7 +76,7 @@ async function doMenuQuery(formattedDate, res){
     res.json({success: 'retrieved data successfully', data: data.rows});
   } catch (error) {
     console.log(`issue executing query: ${query}`)
-    console.log(err.stack)
+    console.log(error.stack)
     res.status(500).json({failuer: "Issue with database query"})
   }
 }
