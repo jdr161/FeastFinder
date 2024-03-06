@@ -13,6 +13,7 @@ function Root(){
   const logOut = useCallback(async () => {
     try {
       await signOut();
+      setUser(null)
     } catch (error) {
       console.log('error signing out: ', error);
     }
