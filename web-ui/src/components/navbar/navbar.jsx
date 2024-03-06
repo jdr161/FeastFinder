@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography, Button } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
-import { NavLink, Link } from "react-router-dom"
+import { NavLink, Link } from "react-router-dom";
+import { AuthContext } from '../../contexts/authcontext';
 
 
 const drawerWidth = 240;
@@ -13,6 +14,7 @@ const pages = [
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const auth = useContext(AuthContext);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -34,6 +36,21 @@ function Navbar() {
             </ListItem>
           </NavLink>
         ))}
+        {auth.user ? (
+          <ListItem key="logout" disablePadding>
+            <ListItemButton onClick={auth.logOut} sx={{ textAlign: 'center', textDecoration: 'none', color: 'gray' }}>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+        ) : ( 
+          <NavLink key="login" to="/login" style={{ textDecoration: 'none', color: 'gray' }}>
+            <ListItem key="login" disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemText primary="Login" />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+        )}
       </List>
     </Box>
   );
@@ -68,6 +85,17 @@ function Navbar() {
                 </Button>
               </NavLink>
             ))}
+            {auth.user ? (
+              <Button key="logout" onClick={auth.logOut} sx={{ color: '#fff' }}>
+                Logout
+              </Button>
+            ) : (
+              <NavLink key="login" to="/login">
+                <Button key="login" sx={{ color: '#fff' }}>
+                  Login
+                </Button>
+              </NavLink>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
