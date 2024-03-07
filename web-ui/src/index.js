@@ -7,11 +7,13 @@ import {
   createBrowserRouter,
   RouterProvider,
   Route,
+  useParams
 } from "react-router-dom";
 import Root from './routes/root';
 import Homepage from './routes/homepage';
 import Errorpage from './routes/errorpage';
 import LoginPage from './routes/login';
+import MenuView from './components/menuView';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -23,7 +25,6 @@ import { Amplify } from 'aws-amplify';
 import config from './aws-exports';
 Amplify.configure(config);
 
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
@@ -34,13 +35,19 @@ const router = createBrowserRouter(
       <Route errorElement={<Errorpage />}>
         <Route index element={<Homepage />} />
         <Route path='login' element={<LoginPage />} />
-        {/* <Route path='about' element={<About />} />
-        <Route path='services' element={<Services />} />
-        <Route path='book-appointment' element={<BookAppointment />} /> */}
+        <Route path='/menu/:date' element={<MenuViewWithDate />} />
       </Route>
     </Route>
   )
 );
+
+function MenuViewWithDate(){
+  let params = useParams();
+
+  return (
+    <MenuView date={params.date} />
+  )
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
