@@ -1,12 +1,7 @@
-import { Container, Typography } from "@mui/material"
+import MenuView from "../../components/menuView"
 
 function Homepage() {
-
-    return (
-        <Container disableGutters maxWidth="false">
-            <p>
-                hello from the homepage
-            </p>
-        </Container>
-    )
+  return (
+    <MenuView date={new Date().toISOString().split('T')[0]} />
+  )
 } export default Homepage
