@@ -9,6 +9,14 @@
           ],
           "category": "function",
           "resourceName": "menuFunction"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "reviewFunction"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -43,6 +51,12 @@
   },
   "function": {
     "menuFunction": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "reviewFunction": {
       "build": true,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -127,6 +141,54 @@
         {
           "category": "function",
           "resourceName": "menu"
+        }
+      ]
+    },
+    "AMPLIFY_function_reviewFunction_dbConnectionPort": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reviewFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_reviewFunction_dbConnectionString": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reviewFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_reviewFunction_dbPassword": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reviewFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_reviewFunction_dbUser": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reviewFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_reviewFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reviewFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_reviewFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reviewFunction"
         }
       ]
     }

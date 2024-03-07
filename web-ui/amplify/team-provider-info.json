@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-amplifyd34450d2d15b4-staging-165957-unauthRole",
       "StackName": "amplify-amplifyd34450d2d15b4-staging-165957",
       "StackId": "arn:aws:cloudformation:us-east-2:891377398478:stack/amplify-amplifyd34450d2d15b4-staging-165957/cf467640-d1a3-11ee-880f-02662f4cb827",
-      "AmplifyAppId": "dvlbzxwa8skek"
+      "AmplifyAppId": "dvlbzxwa8skek",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-amplifyd34450d2d15b4-staging-165957-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
@@ -28,7 +29,15 @@
           "dbUser": "postgres",
           "dbPassword": "csds395!",
           "deploymentBucketName": "amplify-amplifyd34450d2d15b4-staging-165957-deployment",
-          "s3Key": "amplify-builds/menuFunction-7633385358324542715a-build.zip"
+          "s3Key": "amplify-builds/menuFunction-6841576841354d616666-build.zip"
+        },
+        "reviewFunction": {
+          "dbConnectionString": "feastfinderdb.ct8asc8k0lgv.us-east-2.rds.amazonaws.com",
+          "dbConnectionPort": "5432",
+          "dbUser": "postgres",
+          "dbPassword": "csds395!",
+          "deploymentBucketName": "amplify-amplifyd34450d2d15b4-staging-165957-deployment",
+          "s3Key": "amplify-builds/reviewFunction-45707851547338497877-build.zip"
         }
       },
       "api": {
