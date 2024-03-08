@@ -1,8 +1,13 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Skeleton, Typography } from "@mui/material"
-
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Skeleton, Typography, Link } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 
 function MenuTable({ rows }) {
 
+  const navigate = useNavigate()
+  const viewReviews = (id) => {
+    navigate(`/reviews/${id}/`)
+  }
+  
   function getTableBody() {
     //loading state
     if (rows == undefined) {
@@ -45,7 +50,11 @@ function MenuTable({ rows }) {
         rows.map((row) => (
           <TableRow
             key={row.name}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            sx={{ 
+              '&:last-child td, &:last-child th': { border: 0 },
+              cursor: 'pointer'
+            }}
+            onClick={() => (viewReviews(row.itemID))}
           >
             <TableCell component="th" scope="row">
               {row.cafename}

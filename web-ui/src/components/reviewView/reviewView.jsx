@@ -78,17 +78,16 @@ function ReviewView({id}) {
         }
     ]
     
-    
-
     const [reviews, setReviews] = useState(mock)
 
     useEffect(() => {
-        fetch(`https://theon32sn0.execute-api.us-east-2.amazonaws.com/staging/menu/reviews/${2}`)
+        fetch(`https://theon32sn0.execute-api.us-east-2.amazonaws.com/staging/menu/reviews/${id}`)
           .then((response) => response.json())
           .then((object) => {
             if (object.success) {
                 console.log(object)
-                //setReviews(object.data)
+                //no reviews in the database...
+                setReviews(object.data)
             } else {
               throw new Error(object.failure)
             }
