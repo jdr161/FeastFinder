@@ -7,6 +7,22 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/reviews": {
+      "name": "/reviews",
+      "lambdaFunction": "reviewFunction",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
     }
   }
 }

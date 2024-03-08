@@ -14,6 +14,8 @@ import Homepage from './routes/homepage';
 import Errorpage from './routes/errorpage';
 import LoginPage from './routes/login';
 import MenuView from './components/menuView';
+import ReviewForm from './components/reviewForm'
+import ReviewView from './components/reviewView'
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -36,6 +38,8 @@ const router = createBrowserRouter(
         <Route index element={<Homepage />} />
         <Route path='login' element={<LoginPage />} />
         <Route path='/menu/:date' element={<MenuViewWithDate />} />
+        <Route path='/reviews/:id' element={<ReviewViewWithID />} /> 
+        <Route path='/reviews/:id/create' element={<ReviewFormWithID />} /> 
       </Route>
     </Route>
   )
@@ -46,6 +50,20 @@ function MenuViewWithDate(){
 
   return (
     <MenuView date={params.date} />
+  )
+}
+
+function ReviewViewWithID(){
+  let params = useParams();
+  return (
+    <ReviewView id={params.id} />
+  )
+}
+
+function ReviewFormWithID(){
+  let params = useParams();
+  return (
+    <ReviewForm id={params.id} />
   )
 }
 
